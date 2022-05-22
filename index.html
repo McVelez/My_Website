@@ -4,38 +4,33 @@
 
     body
     {
-      background:
-        linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
-        linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
-        linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
-        linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
-        linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
-        linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
-      background-color: #131313;
-      background-size: 20px 20px;
+      background-image: url('../../images/background.jpg');
+      
     }
 
 
     @keyframes hover-anim{
-      0% {background-color: rgba(212, 212, 212, 1);}
-      25% {background-color: rgba(212, 212, 212, 0.8);}
-      50% {background-color: rgba(212, 212, 212, 0.7);}
-      75% {background-color: rgba(212, 212, 212, 0.65);}
-      100% {background-color: rgba(212, 212, 212, 0.6);}
+      0% {background-color: rgba(255, 50, 50, 0.577)}
+      25% {background-color: rgba(255, 50, 50, 0.6);}
+      50% {background-color: rgba(255, 50, 50, 0.7);}
+      75% {background-color: rgba(255, 50, 50, 0.75);}
+      100% {background-color: rgba(255, 50, 50, 0.8);}
     }
 
-    a:hover {
+    input:hover {
       animation-name: hover-anim;
       animation-duration: 0.3s;
-      background-color: rgba(212, 212, 212, 0.6);
+      background-color: rgba(255, 50, 50, 0.8);
     }
     
     .main-title{
       text-align: center;
-      font-size: xx-large;
-      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-      font-weight: bolder;
-      color: antiquewhite;
+      font-size: 65px;
+      font-family: 'Helvetica Neue', sans-serif;
+      letter-spacing: -1px;
+      font-weight: bold;
+      color: rgb(255, 10, 10);
+      padding-top: 10px;
     }
 
     .out-box{
@@ -45,10 +40,8 @@
       padding: 10px;
     }
 
-    
     canvas{
       display: flex;
-      position: relative;
       width: 48%;
       height: 95%;
       margin: auto;
@@ -67,29 +60,64 @@
       display:flex;
       align-items: center;
       justify-content: center;
+      text-align: center;
       width:90%;
       margin: auto;
       height: 45%;
-      border: 2px solid #0c0c0c;
       text-decoration:none;
       color: #151515;
-      background-color: lightgrey;
-      border-radius: 22px;
+      background-color: rgba(255, 50, 50, 0.577);
+      border-radius: 15px;
+      outline:0;
+      border: none;
+    }
+
+    .photo-space{
+      display:flex;
+      align-items: center;
+      width:30%;
+      height:90%;
+      margin-right: 10px;
+    }
+
+    .photo-svg{
+      margin:auto;
+      align-items: center;
+      height: 80%;
+      width: 90%;
+      stroke: #ffffff;
+      }
+
+    .photo-circle{
+      margin:auto;
+      align-items: center;
+      height: 80%;
+      width: 90%;
+      stroke-width: 10;
+    }
+
+    .description{
+      display:flex;
+      width:60%;
+      height:90%;
+      border-style: solid;
     }
 
     .proyects-box{
       display:flex;
       align-items: center;
       justify-content: center;
+      text-align: center;
       width:90%;
       margin: auto;
       height: 45%;
-      border: 2px solid #0c0c0c;
-      text-decoration:none;
       color: #151515;
-      background-color: rgb(212, 212, 212);
-      border-radius: 22px;
+      background-color: rgba(255, 50, 50, 0.577);
+      border-radius: 15px;
+      cursor: pointer;
+      border: none;
     }
+
 
   </style>
 
@@ -102,17 +130,24 @@
 
     <script src="index.js" type="text/jsx"></script>
     
-    <div class="main-title">Develop. Preview. Ship. 🚀</div>
+    <div class="main-title">Website in development</div>
 
     <div class="out-box">
       <canvas></canvas>
       <div class="right-container-box">
-        <a class="about-info-box" href="google.com">
-          <div>About Me</div>
-        </a>
-        <a class="proyects-box" href="here.com">
-          <div>Proyects</div>
-        </a>
+        <div class="about-info-box">
+          <div class="photo-space">
+            <svg class="photo-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <pattern id="image" x="0" y="0" patternUnits="objectBoundingBox" height="1" width="1">
+                  <image x="5" y="5" xlink:href="https://i.ibb.co/8915yvn/profilepic.jpg"></image>
+                </pattern> 
+              <circle class="photo-circle" cx="50%" cy="50%" r="90" fill = "url(#image)" />
+            </svg>
+          </div>
+          <div class="description"></div>
+        </div>
+        <input class="proyects-box" type:="button", value="Proyects">
+      </div>
     </div>
     
     <script src="three.js"></script>
@@ -121,7 +156,11 @@
 
       import {GLTFLoader} from "./GLTFLoader.js";
 
+
       var canvas = document.querySelector('canvas');
+
+      
+
       var scene = new THREE.Scene()
       var camera = new THREE.PerspectiveCamera(75, 1, 0.1, 2000);
       camera.position.set(0,0,13);
@@ -138,13 +177,13 @@
       let mixer;
       /// This work is based on "Fox" (https://sketchfab.com/3d-models/fox-f372c04de44640fbb6a4f9e4e5845c78) by victory_mirosya (https://sketchfab.com/victory_mirosya) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
       loader.load("scene.gltf", function(gltf){
+
         obj = gltf.scene;
         scene.add(gltf.scene);
 
         mixer = new THREE.AnimationMixer(obj);
         const clips = gltf.animations;
         const clip = THREE.AnimationClip.findByName(clips, 'hit');
-        console.log(clips)
         const action = mixer.clipAction(clip);
         action.play();
 
